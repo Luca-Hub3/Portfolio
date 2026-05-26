@@ -11,6 +11,7 @@ export default function Contact() {
     name: "",
     email: "",
     message: "",
+    website: "", // honeypot - hidden field, bots fill this
   })
   const [submitted, setSubmitted] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
@@ -25,6 +26,14 @@ export default function Contact() {
     setError(null)
 
     try {
+      // Honeypot check — bots fill hidden fields, humans don't
+      if (formData.website) {
+        setSubmitted(true)
+        setFormData({ name: "", email: "", message: "", website: "" })
+        setTimeout(() => setSubmitted(false), 5000)
+        return
+      }
+
       const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
@@ -49,7 +58,7 @@ export default function Contact() {
       }
 
       setSubmitted(true)
-      setFormData({ name: "", email: "", message: "" })
+      setFormData({ name: "", email: "", message: "", website: "" })
       setTimeout(() => setSubmitted(false), 5000)
       if (document.activeElement instanceof HTMLElement) {
         document.activeElement.blur()
@@ -155,6 +164,17 @@ export default function Contact() {
             onSubmit={handleSubmit}
             className="space-y-4 md:space-y-6 p-6 md:p-8 rounded-xl border border-accent/30 bg-background"
           >
+            {/* Honeypot — hidden from users, bots fill this */}
+            <input
+              type="text"
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+              style={{ display: "none" }}
+              aria-hidden="true"
+            />
             <div>
               <label className="block text-sm font-semibold text-foreground mb-2">Name</label>
               <input

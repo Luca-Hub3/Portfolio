@@ -15,8 +15,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Tutti i campi sono obbligatori" }, { status: 400 })
     }
 
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    if (!emailRegex.test(email)) {
+    const emailRegex = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/
+    if (!emailRegex.test(email.trim())) {
       return NextResponse.json({ error: "Email non valida" }, { status: 400 })
     }
 
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
     const { data, error } = await resend.emails.send({
       from: fromEmail,
       to: "luca.musso.dev@gmail.com",
-      replyTo: email,
+      replyTo: email.trim(),
       subject: `Nuovo messaggio da ${name}`,
       html: `
 <!DOCTYPE html>

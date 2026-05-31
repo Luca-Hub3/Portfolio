@@ -1,6 +1,7 @@
 import Navigation from "@/components/navigation"
 import Hero from "@/components/hero"
 import About from "@/components/about"
+import Timeline from "@/components/timeline"
 import Projects from "@/components/projects"
 import Skills from "@/components/skills"
 import Contact from "@/components/contact"
@@ -13,6 +14,7 @@ export default function Home() {
       <div className="flex-1 md:ml-64">
         <Hero />
         <About />
+        <Timeline />
         <Projects />
         <Skills />
         <Contact />

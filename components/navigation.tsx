@@ -11,6 +11,7 @@ export default function Navigation() {
   const sections = [
     { name: "Home", id: "hero" },
     { name: "Who I am", id: "about" },
+    { name: "Journey", id: "timeline" },
     { name: "Projects", id: "projects" },
     { name: "Skills", id: "skills" },
     { name: "Contacts", id: "contact" },

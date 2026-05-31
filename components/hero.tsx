@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
 const floatingItems = [
   // Simboli codice
@@ -119,15 +119,10 @@ const titles = [
 
 export default function Hero() {
   const [titleIndex, setTitleIndex] = useState(0)
-  const [visible, setVisible] = useState(true)
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setVisible(false)
-      setTimeout(() => {
-        setTitleIndex((i) => (i + 1) % titles.length)
-        setVisible(true)
-      }, 400)
+      setTitleIndex((i) => (i + 1) % titles.length)
     }, 2800)
     return () => clearInterval(interval)
   }, [])
@@ -144,6 +139,12 @@ export default function Hero() {
           50% { transform: translateY(-18px) rotate(3deg); opacity: 0.5; }
           75% { opacity: 0.42; }
           100% { transform: translateY(0px) rotate(0deg); opacity: 0.35; }
+        }
+        @keyframes titleFade {
+          0%   { opacity: 0; transform: translateY(6px); }
+          15%  { opacity: 1; transform: translateY(0px); }
+          85%  { opacity: 1; transform: translateY(0px); }
+          100% { opacity: 0; transform: translateY(-6px); }
         }
       `}</style>
 
@@ -164,15 +165,17 @@ export default function Hero() {
           </h1>
 
           <div className="h-16 md:h-20 font-mono text-accent text-base sm:text-lg md:text-xl lg:text-2xl bg-card/30 rounded-lg p-3 md:p-4 flex items-center justify-center border border-accent/20 mx-4">
-            <span style={{ transition: "opacity 0.4s ease", opacity: visible ? 1 : 0 }}>
+            <span
+              key={titleIndex}
+              style={{ animation: "titleFade 2.8s ease forwards" }}
+            >
               {titles[titleIndex]}
             </span>
           </div>
         </div>
 
         <p className="text-base md:text-lg text-muted-foreground max-w-xl mx-auto leading-relaxed px-4">
-          I create modern, interactive web experiences with React, Next.js, and TypeScript. Passionate about design and performance
-          and clean code.
+          I create modern, interactive web experiences with React, Next.js, and TypeScript. Passionate about design, performance and clean code.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center pt-6 md:pt-8 px-4">

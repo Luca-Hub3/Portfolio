@@ -85,7 +85,7 @@ Portfolio-main/
 ### Prerequisites
 
 - **Node.js** v18 or higher
-- **pnpm** (recommended) or npm
+- **npm**
 
 ### Installation
 
@@ -95,8 +95,6 @@ git clone https://github.com/Luca-Hub3/Portfolio
 cd Portfolio-main
 
 # Install dependencies
-pnpm install
-# or
 npm install
 ```
 
@@ -117,8 +115,6 @@ CONTACT_EMAIL=your@email.com
 ### Development
 
 ```bash
-pnpm dev
-# or
 npm run dev
 ```
 
@@ -127,8 +123,8 @@ Open [http://localhost:45030](http://localhost:45030) in your browser.
 ### Production Build
 
 ```bash
-pnpm build
-pnpm start
+npm build
+npm start
 ```
 
 ---
